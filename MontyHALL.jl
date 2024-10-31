@@ -91,14 +91,31 @@ function RunWithOutExchange(N::Int)
 end
 
 
+function WinningProbability(change::Bool)
+    w_prob = 0
+    
+    return 
+    
+end
+
+
 num_iterations = collect(0:5:50)
-supercars_exchange, supercars_no_exchange = [], []
+iter = collect(0:10:10_000)
+supercars_exchange, supercars_no_exchange, probs_exchange, probs_no_exchange = [], [], [], []
 
 for i in 1:length(num_iterations)
     super_car_w_exchange = RunWithExchange(num_iterations[i])
     push!(supercars_exchange, super_car_w_exchange)
     super_car_wout_exchange = RunWithOutExchange(num_iterations[i])
     push!(supercars_no_exchange, super_car_wout_exchange)
+end
+
+
+for i in 1:length(iter)
+    super_car_w_exchange = RunWithExchange(iter[i])
+    super_car_wout_exchange = RunWithOutExchange(iter[i])
+    push!(probs_exchange, super_car_w_exchange/iter[i])
+    push!(probs_no_exchange, super_car_wout_exchange/iter[i])
 end
 
 
@@ -114,4 +131,17 @@ supercars_no_exchange,
 labels="Without Exchange",
 marker=:square)
 
-savefig(p, "/Users/francescoaldoventurelli/Downloads/MontyHall.png")
+#savefig(p, "/Users/francescoaldoventurelli/Downloads/MontyHall.png")
+
+
+v = plot(iter,
+probs_exchange,
+xlabel="Number of Iterations",
+ylabel="Probability",
+title="MontyHall Probability",
+labels="With Exchange")
+plot!(iter,
+probs_no_exchange,
+labels="Without Exchange")
+
+savefig(v, "/Users/francescoaldoventurelli/Downloads/MontyHall_Probs.png")
