@@ -91,14 +91,6 @@ function RunWithOutExchange(N::Int)
 end
 
 
-function WinningProbability(change::Bool)
-    w_prob = 0
-    
-    return 
-    
-end
-
-
 num_iterations = collect(0:5:50)
 iter = collect(0:10:10_000)
 supercars_exchange, supercars_no_exchange, probs_exchange, probs_no_exchange = [], [], [], []
